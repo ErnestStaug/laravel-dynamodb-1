@@ -2,11 +2,13 @@
 
 namespace Kitar\Dynamodb\Helpers;
 
+use ReturnTypeWillChange;
+
 class NumberIterator implements \Iterator
 {
-    private $start = 0;
-    private $current = 0;
-    private $prefix = '';
+    private mixed $start;
+    private mixed $current = 0;
+    private mixed $prefix;
 
     public function __construct($start = 1, $prefix = '')
     {
@@ -14,27 +16,27 @@ class NumberIterator implements \Iterator
         $this->prefix = $prefix;
     }
 
-    public function rewind()
+    #[ReturnTypeWillChange] public function rewind(): void
     {
         $this->current = $this->start;
     }
 
-    public function current()
+    #[ReturnTypeWillChange] public function current(): string
     {
         return "{$this->prefix}{$this->current}";
     }
 
-    public function key()
+    #[ReturnTypeWillChange] public function key()
     {
         return $this->current;
     }
 
-    public function next()
+    #[ReturnTypeWillChange] public function next(): void
     {
         $this->current++;
     }
 
-    public function valid()
+    #[ReturnTypeWillChange] public function valid(): bool
     {
         return true;
     }
